@@ -37,7 +37,7 @@ jobs:
         run: buildozer android debug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: snapify-android-apk
           path: Snapify_Attendance_System/mobile_app/bin/*.apk

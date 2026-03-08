@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - 'Snapify_Attendance_System/mobile_app/**'
-      - '.github/workflows/build-apk.yml'
+      - '.github/workflows/buildapk.yml'
   workflow_dispatch:
 
 jobs:

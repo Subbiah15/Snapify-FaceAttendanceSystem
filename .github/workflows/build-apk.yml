@@ -1,0 +1,43 @@
+name: Build Android APK
+on:
+  push:
+    paths:
+      - 'Snapify_Attendance_System/mobile_app/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Cache Buildozer Global Directory
+        uses: actions/cache@v3
+        with:
+          path: ~/.buildozer
+          key: buildozer-global-${{ hashFiles('Snapify_Attendance_System/mobile_app/buildozer.spec') }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y psmisc xclip libffi-dev cmake cmake-data libcairo2-dev build-essential libssl-dev autoconf automake libtool unzip openjdk-17-jdk
+          python -m pip install --upgrade pip
+          pip install buildozer cython virtualenv dlib
+
+      - name: Build with Buildozer
+        # Run buildozer inside the mobile_app directory
+        working-directory: ./Snapify_Attendance_System/mobile_app
+        run: buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: snapify-android-apk
+          path: Snapify_Attendance_System/mobile_app/bin/*.apk

@@ -63,6 +63,11 @@ android.allow_backup = True
 
 # (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
 log_level = 2
+android.api = 31
+android.minapi = 21
+android.sdk = 31
+android.ndk = 25b
+android.build_tools = 30.0.3
 
 # (int) Display warning if buildozer is run as root (0 = off, 1 = on)
 warn_on_root = 1
